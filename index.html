@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit Trivia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css">
+</head>
+
+
+<body>
+
+    <h1>Fruit Trivia</h1>
+<br>
+    <h2>Test your knowledge of fruits</h2>
+<br>
+<!-- Start button -->
+    <button id="startButton" class="btn btn-danger">Start</button>
+<!-- Clock -->
+    <h3 id="timeRemaining"></h3>
+<br>
+<!-- Holds the correct answer summary -->
+<div id="correctAnswerSummary"></div>
+<br>
+<!-- Holds the wrong answer summary -->
+<div id="wrongAnswerSummary"></div>
+<br>
+    <button id="tryAgainButton" class="btn btn-danger">Try Again</button>
+<br>
+<!-- Quesitons -->
+<!-- ======================================================= -->
+    <form class="questions">
+        <p>Which of these is not a fruit?</p>
+        <input type="radio" name="not-a-fruit" value="apple"> Apple<br/>
+        <input type="radio" name="not-a-fruit" value="romaine"> Romaine<br/>
+        <input type="radio" name="not-a-fruit" value="tomato"> Tomato<br/>
+        <input type="radio" name="not-a-fruit" value="strawberry"> Strawberry<br/>
+    </form> 
+<br>
+
+    <form class="questions">
+            <p>Which fruit has the most potassium</p>
+            <input type="radio" id="apple" name="most-potassium" value="pineapple"> Pineapple<br/>
+            <input type="radio" name="most-potassium" value="banana"> Banana<br/>
+            <input type="radio" name="most-potassium" value="orange"> Orange<br/>
+            <input type="radio" name="most-potassium" value="rasberry"> Rasberry<br/>
+    </form> 
+
+<br>
+    <form class="questions">        
+            <p>What berry has the most antioxidants</p>
+            <input type="radio" name="antioxidants" value="pear"> Pear<br/>
+            <input type="radio" name="antioxidants" value="druian"> Durian<br/>
+            <input type="radio" name="antioxidants" value="grape"> Grape<br/>
+            <input type="radio" name="antioxidants" value="blueberry"> Blueberry<br/>
+    </form class=> 
+<br>
+    <form class="questions">
+            <p>Which one of these is not an apple</p>
+            <input type="radio" name="not-an-apple" value="grandma"> Grandma<br/>
+            <input type="radio" name="not-an-apple" value="pinklady"> Pinklady<br/>
+            <input type="radio" name="not-an-apple" value="fuji"> Fuji<br/>
+            <input type="radio" name="not-an-apple" value="baldwin"> Baldwin<br/>
+    </form> 
+<br>
+
+<!-- Submit Button -->
+    <button id="submitButton" class="btn btn-danger">Submit</button>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./assets/javascript/app.js"></script>
+</body>
+</html>
