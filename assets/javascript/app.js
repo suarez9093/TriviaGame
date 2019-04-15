@@ -101,6 +101,7 @@ var game = {
         if (game.counter === 0) {
             alert("Time is up!");
             game.checkAnswer();
+            game.reset();
         }
     },
     // Gets the answers chosen and scores them based on right and wrond answers
