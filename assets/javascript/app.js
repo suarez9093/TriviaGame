@@ -4,38 +4,78 @@
 var intervalID;
 // Sets the clockRunning to false
 var clockRunning = false;
-//  Sets the time to 90 seconds
-var time = 2;
 // holds the right answers
-var answers = ["romaine", "orange" , "blueberry" , "grandma"];
-// right answer tracker
-var correctAnswers = 0;
-// wrong answer tracker
-var wrongAnswers = 0;
-// Hides the questions
-$(".questions").hide()
-// Hides the submitButton
-$("#submitButton").hide();
-// Hides the time Remaining
-$("#timeRemaining").hide();
-// Try again button hide at start
-$("#tryAgainButton").hide();
-// $("#tryAgainButton").on("click", startTrivia());
- 
-// Functions
-// ==========================================================================================================
-// Starts the trivia game
-$("#startButton, #tryAgainButton").on("click", function startTrivia(){ 
+var questions = [
+    {
+        question: "Which of these is not a fruit?",
+        answers: ["romaine", "orange", "blueberry", "grandma"],
+        correctAnswer: "romaine"
+    },
+    {
+        question: "Which fruit has the most potassium?",
+        answers: ["pineapple", "banana", "orange", "rasberry"],
+        correctAnswer: "pineapple"
+    },
+    {
+        question: "What berry has the most antioxidants?",
+        answers: ["blueberry", "strawberry", "blackberry", "rasberry"],
+        correctAnswer: "blueberry"
+    },
+    {
+        question: "Which one of these is not an apple?",
+        answers: ["grandma", "pinklady", "fuji", "baldwin"],
+        correctAnswer: "grandma"
+    }
+]
+
+ // Hides the submitButton
+ $("#submitButton").hide();
+ // Try again button hide at start
+ $("#tryAgainButton").hide();
+var game = {
+
+    // right answer tracker
+    correctAnswers: 0,
+    // wrong answer tracker
+    wrongAnswers: 0,
+
+    counter: 30,
+
+
+    // Functions
+    // ==========================================================================================================
+    // Starts the trivia game
+    startTrivia: function () {
         // show the timeRemaining
         $("#timeRemaining").show();
         // Set the timeRemaining text to 00:00
-        $("#timeRemaining").text("Time Remaining: " + time + "seconds");
+        $("#timeRemaining").text("Time Remaining: " + game.counter + "seconds");
+        // Hides the questions
+        $(".questions").hide()
+        // Hides the submitButton
+        $("#submitButton").hide();
+        // Try again button hide at start
+        $("#tryAgainButton").hide();
+        // $("#tryAgainButton").on("click", startTrivia());
+
+        // ---------------------------------------------------------------------------------------------
+        for (var i = 0; i < questions.length; i++) {
+            // Append the questions
+            $(".questions").append("<h3>" + questions[i].question + "</h3>");
+
+            for (var j = 0; j < questions[i].answers.length; j++) {
+                $(".questions").append("<br>" + " <input type='radio' name='question-" + i + "' value='" + questions[i].answers[j] + "'' > " + questions[i].answers[j])
+            }
+
+
+        }
+        // ----------------------------------------------------------------------------------------------------------------------------------
         // Show the questions
         $(".questions").show();
         // Show the submitButton
         $("#submitButton").show();
         // Hide the startButton
-        $("#startButton").hide(); 
+        $("#startButton").hide();
         // hides the try again button 
         $("#tryAgainButton").hide();
         // correctAnswerSummary
@@ -43,73 +83,150 @@ $("#startButton, #tryAgainButton").on("click", function startTrivia(){
         // wrongAnswerSummary
         $("#wrongAnswerSummary").hide();
         // to prevent multiple intervals being set simultaneously
-            if(!clockRunning){
-                intervalID = setInterval(count, 1000);
+            intervalID = setInterval(game.count, 1000);
             // only have one running interval at a time
-                clockRunning = true;   
-            }
-    });
-// starts the startTrivia function 
-// startTrivia();
+            clockRunning = true;
 
-// Reset
-function reset(){
-    // $("#timeRemaining").hide();
-    $(".questions").hide();
-    // Hides the submit button
-    $("#submitButton").hide();
-    // Shows the try again button
-    $("#tryAgainButton").show();
-    // Times up text
-    $("#timeRemaining").text("Time's up!");
-    // show the correctAnswerSummary
-    $("#correctAnswerSummary").show();
-    // show the wrongAnswerSummary
-    $("#wrongAnswerSummary").show();
-    // correctAnswerSummary
-    $("#correctAnswerSummary").text("Correct Answers: " + correctAnswers);
-    // wrongAnswerSummary
-    $("#wrongAnswerSummary").text("Wrong Answers: " + wrongAnswers);
-    // Stops the count 
-    clearInterval(intervalID);
-    // Sets the clock to not running
-    clockRunning = false;
-    // resets the time
-    time = 5;
+       
+    },
+    // starts the startTrivia function 
+    // startTrivia();
 
-};
+    // Reset
+    reset: function () {
+        // $("#timeRemaining").hide();
+        $(".questions").hide();
+        // Hides the submit button
+        $("#submitButton").hide();
+        // Shows the try again button
+        $("#tryAgainButton").show();
+        // Times up text
+        $("#timeRemaining").text("Time's up!");
+        // show the correctAnswerSummary
+        $("#correctAnswerSummary").show();
+        // show the wrongAnswerSummary
+        $("#wrongAnswerSummary").show();
+        // correctAnswerSummary
+        $("#correctAnswerSummary").text("Correct Answers: " + game.correctAnswers);
+        // wrongAnswerSummary
+        $("#wrongAnswerSummary").text("Wrong Answers: " + game.wrongAnswers);
+        // Stops the count 
+        clearInterval(intervalID);
+        // Sets the clock to not running
+        clockRunning = false;
+        // resets the time
+        game.counter = 30;
 
-// Holds the count
-function count(){
-    time--;
-    $("#timeRemaining").text("Time Remaining: " + time + " seconds");
-    if (time === 0){
-        alert("Time is up!")
-        reset();
-    }
-};
+        console.log(intervalID);
+    },
 
 
-// Gets the answers chosen and scores them based on right and wrond answers
-function getAnswer(){
-    $(".questions input").on("click" , function () {
-        var selValue = $("[type='radio']:checked").val();
-        console.log(answers);
+    // Holds the count
+    count: function () {
+        game.counter--;
 
-        if (selValue == answers.length){correctAnswers++;} 
-        else if (selValue !== answers.length){wrongAnswers++;}
-    });
- 
-    }
-getAnswer();
-
-// var answers = ["romaine", "orange" , "blueberry" , "grandma"];
-
-
-
-
-
-
-
-
+        $("#timeRemaining").html("<h3>Time Remaining: " + game.counter + " seconds </h3>");
+        if (game.counter === 0) {
+            alert("Time is up!")
+            game.reset();
+           
+        }
     
+    },
+
+
+    // Gets the answers chosen and scores them based on right and wrond answers
+    // --------------------------------------------------------------------------------------------------------------------------------
+    checkAnswer: function () {
+        $.each($("input[name=question-0]:checked"), function(){
+            if ($(this).val() === questions[0].correctAnswer){
+                        game.correctAnswers++;
+                    } else {game.wrongAnswers++;} 
+                   
+        });
+
+        $.each($("input[name=question-1]:checked"), function(){
+            if ($(this).val() === questions[1].correctAnswer){
+                        game.correctAnswers++;
+                    } else {game.wrongAnswers++;} 
+                   
+        });
+
+        $.each($("input[name=question-2]:checked"), function(){
+            if ($(this).val() === questions[2].correctAnswer){
+                        game.correctAnswers++;
+                    } else {game.wrongAnswers++;} 
+                   
+        });
+
+        $.each($("input[name=question-3]:checked"), function(){
+            if ($(this).val() === questions[3].correctAnswer){
+                        game.correctAnswers++;
+                    } else {game.wrongAnswers++;} 
+                   
+        });
+
+        console.log(game.correctAnswers)
+        console.log(game.wrongAnswers)
+      
+
+        
+
+        game.reset();
+    },
+   
+
+    // When you click the submit button
+    submit: function () {
+        $("#submitButton").on("click", function () {
+            // Stops the count 
+            clearInterval(intervalID);
+            // Sets the clock to not running
+            clockRunning = false;
+            // Hides the questions
+            $(".questions").hide()
+            // Hides the time Remaining
+            $("#timeRemaining").text("Your Summary");
+            // correctAnswerSummary
+            $("#correctAnswerSummary").text("Correct Answers: " + correctAnswers);
+            // wrongAnswerSummary
+            $("#wrongAnswerSummary").text("Wrong Answers: " + wrongAnswers);
+            // show the correctAnswerSummary
+            $("#correctAnswerSummary").show();
+            // show the wrongAnswerSummary
+            $("#wrongAnswerSummary").show();
+            // show try again button    
+            $("#tryAgainButton").show();
+            // Hides the submitButton
+            $("#submitButton").hide();
+            reset();
+
+        });
+
+    }
+
+
+
+
+}
+
+$("#startButton").on("click" , function(){
+    $("#timeRemaining").show();
+    game.startTrivia();
+})
+
+$("#submitButton").on("click" , function(){
+    game.checkAnswer();
+    game.reset();
+})
+
+$("#tryAgainButton").on("click" , function(){
+    $("#timeRemaining").show();
+
+    game.startTrivia();
+})
+
+
+
+
+
